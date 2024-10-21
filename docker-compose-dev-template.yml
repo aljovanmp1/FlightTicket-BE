@@ -1,0 +1,66 @@
+# Defines the containers 
+services:
+  # First project container (can be named anything)
+  web:
+    # Build parameters for the container
+    image: ticket_be:latest
+    ports:
+      # Maps ports to be accessed by the app outside of the container
+      - "4000:4000"
+    environment:
+      MIX_ENV: "dev"
+      DATABASE_USERNAME: ""
+      DATABASE_PWD: ""
+      DATABASE_HOSTNAME: ""
+      DATABASE_DBNAME: ""
+      DATABASE_INDICATION: ''
+      SECRET_KEY_BASE: ""
+      SECRET_KEY: ""
+
+    develop:
+      watch:
+        - action: sync
+          path: ./lib
+          target: /app/lib
+        - action: sync+restart
+          path: ./config
+          target: /app/config
+        - action: sync+restart
+          path: ./lib/ticket_BE_web
+          target: /app/lib/ticket_BE_web
+        - action: sync
+          path: ./test
+          target: /app/test
+        - action: rebuild
+          path: mix.exs
+    command: mix phx.server
+
+  test:
+    # Build parameters for the container
+    build:
+      # Declares that the container should be built from the current directory
+      context: .
+    ports:
+      # Maps ports to be accessed by the app outside of the container
+      - "4001:4002"
+    environment:
+      MIX_ENV: "test"
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./test
+          target: /app/test
+        - action: sync+restart
+          path: ./config
+          target: /app/config
+        - action: sync+restart
+          path: ./lib
+          target: /app/lib
+        - action: rebuild
+          path: mix.exs
+    command: ./test_entrypoint.sh
+  
+  dummy:
+    image: alpine:latest
+    init: true
+    command: ["sh", "-c", "while true; do sleep 2; done"]
