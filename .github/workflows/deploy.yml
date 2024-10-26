@@ -27,7 +27,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: [ip-172-31-3-239]
+    runs-on: self-hosted
     steps:
       - name: Pull image from docker hub
         run: docker pull aljovanmp/flight_ticket:latest
