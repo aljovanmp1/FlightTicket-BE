@@ -17,7 +17,8 @@ config :ticket_BE, Ticket_BE.Repo,
     verify: :verify_none
   ],
   stacktrace: true,
-  show_sensitive_data_on_connection_error: true
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
 
 config :ticket_BE, Ticket_BEWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
