@@ -29,6 +29,8 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Pull image from docker hub
         run: docker pull aljovanmp/flight_ticket:latest
       - name: Delete old container
