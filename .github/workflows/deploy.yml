@@ -34,7 +34,7 @@ jobs:
       - name: Delete old container
         run: docker rm -f flight_ticket
       - name: Run docker container
-        run: docker compose up --detach
+        run: docker compose -f docker-compose.yml up --detach 
         env:
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DATABASE_PWD: ${{ secrets.DATABASE_PWD }}
