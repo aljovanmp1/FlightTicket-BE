@@ -3,7 +3,8 @@ services:
   # First project container (can be named anything)
   web:
     # Build parameters for the container
-    image: ticket_be:latest
+    image: aljovanmp/flight_ticket:latest
+    container_name: flight_ticket
     ports:
       # Maps ports to be accessed by the app outside of the container
       - "4000:4000"

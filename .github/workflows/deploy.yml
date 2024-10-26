@@ -24,3 +24,22 @@ jobs:
         tags: latest
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+  deploy:
+    needs: build
+    runs-on: [ip-172-31-3-239]
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull aljovanmp/flight_ticket:latest
+      - name: Delete old container
+        run: docker rm -f flight_ticket
+      - name: Run docker container
+        run: docker compose up --detach
+        env:
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PWD: ${{ secrets.DATABASE_PWD }}
+          DATABASE_HOSTNAME: ${{ secrets.DATABASE_HOSTNAME }}
+          DATABASE_DBNAME: ${{ secrets.DATABASE_DBNAME }}
+          DATABASE_INDICATION: ${{ secrets.DATABASE_INDICATION }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
