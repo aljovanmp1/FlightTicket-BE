@@ -9,7 +9,7 @@ services:
       # Maps ports to be accessed by the app outside of the container
       - "4000:4000"
     environment:
-      MIX_ENV: "prod"
+      MIX_ENV: "dev"
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PWD: ${DATABASE_PWD}
       DATABASE_HOSTNAME: ${DATABASE_HOSTNAME}
