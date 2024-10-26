@@ -13,7 +13,7 @@ config :ticket_BE, Ticket_BE.Repo,
   database: System.get_env("DATABASE_DBNAME"),
   ssl: true,
   ssl_opts: [
-    server_name_indication: System.get_env("DATABASE_INDICATION"),
+    server_name_indication: to_charlist(System.get_env("DATABASE_INDICATION")),
     verify: :verify_none
   ],
   stacktrace: true,
